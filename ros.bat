@@ -1,0 +1,1 @@
+docker run -it --privileged -e DISPLAY=192.168.50.28:0.0 -e QT_GRAPHICSSYSTEM=native -e CONTAINER_NAME=ros-graphic-dev -v "/tmp/.X11-unix:/tmp/.X11-unix" --name=ros-graphic-dev ros-graphic-dev
