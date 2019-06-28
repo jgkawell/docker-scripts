@@ -1,8 +1,0 @@
-version: '3'
-services:
-  main:
-    image: jgkawell:test
-    build: 
-      context: .
-      dockerfile: test.dockerfile
-    container_name: test

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  main:
+    image: jgkawell:ros-dev
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: ros-dev
+    environment:
+      - "DISPLAY=${DISPLAY}:0.0"
+      - "QT_GRAPHICSSYSTEM=native"
+      - "CONTAINER_NAME=ros-dev"
+    stdin_open: true
+    tty: true

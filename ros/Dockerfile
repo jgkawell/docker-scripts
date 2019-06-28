@@ -1,10 +1,6 @@
 FROM ubuntu:xenial
 
-ENV DISPLAY ${DISPLAY}:0.0
-ENV QT_GRAPHICSSYSTEM native
-ENV CONTAINER_NAME ros-kinetic-dev
-
-ADD ./.tmux.conf /root/.tmux.conf
+COPY ./.tmux.conf /root/.tmux.conf
 
 VOLUME "/tmp/.X11-unix:/tmp/.X11-unix"
 

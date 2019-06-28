@@ -1,0 +1,14 @@
+version: '3'
+services:
+  main:
+    image: jgkawell:test
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: test
+    environment:
+      - "DISPLAY=${DISPLAY}:0.0"
+      - "QT_GRAPHICSSYSTEM=native"
+      - "CONTAINER_NAME=test"
+    stdin_open: true
+    tty: true
