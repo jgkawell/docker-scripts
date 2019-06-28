@@ -24,6 +24,7 @@ RUN apt -y install m4
 RUN cd ~/Documents/Software \
         && git clone https://github.com/danfis/libccd.git \
         && cd libccd \
+        && git checkout tags/v2.1 \
         && mkdir build \
         && cd build \
         && cmake -G "Unix Makefiles" -DBUILD_SHARED_LIBS=ON .. \
@@ -35,6 +36,7 @@ RUN apt -y install doxygen libqt4-dev libqt4-opengl-dev libqglviewer-dev-qt4
 RUN cd ~/Documents/Software \
         && git clone https://github.com/OctoMap/octomap.git \
         && cd octomap \
+        && git checkout tags/v1.9.0 \
         && mkdir build \
         && cd build \
         && cmake .. \
@@ -59,6 +61,7 @@ RUN export CXX=g++
 RUN cd ~/Documents/Software \
         && git clone https://github.com/ompl/ompl.git \
         && cd ompl \
+        && git checkout tags/1.4.1 \
         && mkdir -p build/Release \
         && cd build/Release \
         && cmake ../.. \
@@ -79,16 +82,15 @@ RUN apt -y install python-catkin-tools clang-format-3.9
 RUN apt -y install ccache
 RUN ccache --max-size=10
 RUN echo 'export PATH=/usr/lib/ccache:$PATH' >> $HOME/.bashrc
-RUN source $HOME/.bashrc
+RUN export PATH=/usr/lib/ccache:$PATH
 RUN cd ~/Documents/Software \
         && mkdir ws_moveit \
         && cd ws_moveit \
-        && source /opt/ros/kinetic/setup.bash \
         && wstool init src \
         && wstool merge -t src https://raw.githubusercontent.com/ros-planning/moveit/master/moveit.rosinstall \
         && wstool update -t src \
-        && rosdep -y install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} \
-        && catkin config --extend /opt/ros/${ROS_DISTRO} --cmake-args -DCMAKE_BUILD_TYPE=Release \
+        && rosdep -y install --from-paths src --ignore-src --rosdistro kinetic \
+        && catkin config --extend /opt/ros/kinetic --cmake-args -DCMAKE_BUILD_TYPE=Release \
         && catkin config --blacklist \
                 moveit_chomp_optimizer_adapter \
                 moveit_planners_chomp \
