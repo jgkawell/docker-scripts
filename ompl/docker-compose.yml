@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: ompl-dev
     environment:
-      - "DISPLAY=${DISPLAY}:0.0"
+      - "DISPLAY=${DISPLAY}"
       - "QT_GRAPHICSSYSTEM=native"
       - "CONTAINER_NAME=ompl-dev"
     stdin_open: true
