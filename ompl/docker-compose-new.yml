@@ -1,0 +1,14 @@
+version: '3'
+services:
+  main:
+    image: jgkawell:ompl-dev-new
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: ompl-dev-new
+    environment:
+      - "DISPLAY=${DISPLAY}"
+      - "QT_GRAPHICSSYSTEM=native"
+      - "CONTAINER_NAME=ompl-dev-new"
+    stdin_open: true
+    tty: true
