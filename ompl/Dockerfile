@@ -12,42 +12,6 @@ RUN apt -y update
 RUN apt -y upgrade
 RUN apt -y install git build-essential cmake tmux
 
-# Install libccd (https://github.com/danfis/libccd):
-RUN apt -y install m4
-RUN cd ~/ \
-        && git clone https://github.com/danfis/libccd.git \
-        && cd libccd \
-        && git checkout tags/v2.1 \
-        && mkdir build \
-        && cd build \
-        && cmake -G "Unix Makefiles" -DBUILD_SHARED_LIBS=ON .. \
-        && make -j `nproc` \
-        && make install
-
-# Install OctoMap (https://github.com/OctoMap/octomap/wiki/Compilation-and-Installation-of-OctoMap):
-RUN apt -y install doxygen libqt4-dev libqt4-opengl-dev libqglviewer-dev-qt4
-RUN cd ~/ \
-        && git clone https://github.com/OctoMap/octomap.git \
-        && cd octomap \
-        && git checkout tags/v1.9.0 \
-        && mkdir build \
-        && cd build \
-        && cmake .. \
-        && make -j `nproc` \
-        && make test \
-        && make install
-
-# Install FCL (https://github.com/flexible-collision-library/fcl):
-RUN apt -y install libeigen3-dev
-RUN cd ~/ \
-        && git clone https://github.com/jgkawell/fcl.git \
-        && cd fcl \
-        && mkdir build \
-        && cd build \
-        && cmake .. \
-        && make -j `nproc` \
-        && make install
-
 # Install ROS (https://ros.org/install):
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
