@@ -23,7 +23,7 @@ wstool merge -t src https://raw.githubusercontent.com/ros-planning/moveit/master
 wstool update -t src
 rosdep -y install --from-paths src --ignore-src --rosdistro kinetic
 catkin config --extend /opt/ros/kinetic --cmake-args -DCMAKE_BUILD_TYPE=Release
-config --blacklist \
+catkin config --blacklist \
     moveit_chomp_optimizer_adapter \
     moveit_planners_chomp \
     chomp_motion_planner
