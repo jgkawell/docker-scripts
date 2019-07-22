@@ -1,7 +1,7 @@
 # Install misc needed packages
 sudo apt -y update
 sudo apt -y upgrade
-sudo apt -y install git build-essential cmake tmux wget
+sudo apt -y install git build-essential cmake wget
 
 # Install ROS (https://ros.org/install):
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list'
