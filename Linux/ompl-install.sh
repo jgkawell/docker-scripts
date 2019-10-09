@@ -33,7 +33,7 @@ echo "source ~/ws_moveit/devel/setup.bash" >> ~/.bashrc
 # Install OMPL (http://ompl.kavrakilab.org/installation.html):
 sudo apt -y install pkg-config libboost-serialization-dev libboost-filesystem-dev libboost-system-dev libboost-program-options-dev libboost-test-dev libode-dev
 cd ~/ws_moveit/src
-git clone https://github.com/ompl/ompl.git
+git clone https://github.com/cairo-robotics/ompl.git
 cd ompl
 git checkout tags/1.2.3
 
