@@ -80,7 +80,7 @@ RUN apt -y install gazebo7 ros-kinetic-qt-build ros-kinetic-gazebo-ros-control r
 RUN cd ~/ws_moveit/src \
         && git clone https://github.com/RethinkRobotics/sawyer_simulator.git \
         && wstool merge sawyer_simulator/sawyer_simulator.rosinstall \
-        && wstool update
+        && wstool update \
         && catkin build
 
 # Install Sawyer MoveIt
@@ -94,6 +94,7 @@ RUN cd ~/ws_moveit/src/sawyer_moveit/sawyer_moveit_config/config \
         && sed -i "s|type: geometric::RRTstar|type: geometric::RRTstar\n    optimization_objective: CustomObjective|g" ./ompl_planning.yaml
 
 # Copy over config files
-COPY ./panda_demo.rviz /root/ws_moveit/panda_demo.rviz
-COPY ./sawyer_moveit.rviz /root/ws_moveit/sawyer_moveit.rviz
-COPY ./panda_pillar.scene /root/ws_moveit/panda_pillar.scene
+RUN mkdir ~/ws_moveit/config
+COPY ./panda_demo.rviz ~/ws_moveit/config/panda_demo.rviz
+COPY ./sawyer_moveit.rviz ~/ws_moveit/config/sawyer_moveit.rviz
+COPY ./panda_pillar.scene ~/ws_moveit/config/panda_pillar.scene
