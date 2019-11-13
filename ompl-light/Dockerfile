@@ -1,5 +1,5 @@
 # We must build off of Ubuntu 16.04 for ROS Kinetic
-FROM ubuntu:xenial
+FROM osrf/ros:kinetic-desktop
 
 # Config file for easier tmux usage
 COPY ./.tmux.conf /root/.tmux.conf
@@ -9,14 +9,7 @@ VOLUME "/tmp/.X11-unix:/tmp/.X11-unix"
 
 # Install misc needed packages
 RUN apt -y update && apt -y install git build-essential cmake tmux
-
-# Install ROS (https://ros.org/install):
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list'
-RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-RUN apt -y update && apt -y install ros-kinetic-desktop
-RUN rosdep init && rosdep update
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-RUN apt -y update && apt -y install python-rosinstall python-rosinstall-generator python-wstool
 
 # Install MoveIt! (https://moveit.ros.org/install/source/):
 RUN apt -y update && apt -y install python-catkin-tools clang-format-3.9
@@ -47,15 +40,8 @@ RUN cd ~/ws_moveit \
 RUN cd ~/ws_moveit/src/ompl \
         && wget https://raw.githubusercontent.com/ros-gbp/ompl-release/debian/kinetic/xenial/ompl/package.xml
 
-# Finally install MoveIt! with our source OMPL
-# RUN cd ~/ws_moveit \
-#         && catkin clean -y \
-#         && catkin build
-
-# Install needed dependencies for Intera SDK
+# Install Intera SDK (https://sdk.rethinkrobotics.com/intera/Workstation_Setup)
 RUN apt -y update && apt -y install git-core python-argparse python-vcstools python-rosdep ros-kinetic-control-msgs ros-kinetic-joystick-drivers ros-kinetic-xacro ros-kinetic-tf2-ros ros-kinetic-rviz ros-kinetic-cv-bridge ros-kinetic-actionlib ros-kinetic-actionlib-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-trajectory-msgs ros-kinetic-rospy-message-converter
-
-# Install Intera SDK
 RUN cd ~/ws_moveit/src \
         && git clone https://github.com/RethinkRobotics/sawyer_robot.git \
         && wstool merge sawyer_robot/sawyer_robot.rosinstall \
@@ -68,16 +54,14 @@ RUN cd ~/ws_moveit \
         && sed -i "s|\#your_hostname=\"my_computer.local\"|your_hostname=\"localhost\"|g" ./intera.sh \
         && sed -i "s|ros_version=\"indigo\"|ros_version=\"kinetic\"|g" ./intera.sh
 
-# Install needed dependencies for Sawyer simulator
+# Install Sawyer simulator (https://sdk.rethinkrobotics.com/intera/Gazebo_Tutorial)
 RUN apt -y update && apt -y install gazebo7 ros-kinetic-qt-build ros-kinetic-gazebo-ros-control ros-kinetic-gazebo-ros-pkgs ros-kinetic-ros-control ros-kinetic-control-toolbox ros-kinetic-realtime-tools ros-kinetic-ros-controllers ros-kinetic-xacro python-wstool ros-kinetic-tf-conversions ros-kinetic-kdl-parser ros-kinetic-sns-ik-lib
-
-# Install Sawyer simulator
 RUN cd ~/ws_moveit/src \
         && git clone https://github.com/RethinkRobotics/sawyer_simulator.git \
         && wstool merge sawyer_simulator/sawyer_simulator.rosinstall \
         && wstool update
 
-# Install Sawyer MoveIt
+# Install Sawyer MoveIt (https://sdk.rethinkrobotics.com/intera/MoveIt_Tutorial)
 RUN cd ~/ws_moveit/src \
         && wstool merge https://raw.githubusercontent.com/RethinkRobotics/sawyer_moveit/master/sawyer_moveit.rosinstall \
         && wstool update
