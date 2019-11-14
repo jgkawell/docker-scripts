@@ -2,7 +2,7 @@
 FROM jgkawell/ros-dev:latest
 
 # Install MoveIt! (https://moveit.ros.org/install/source/):
-RUN apt -y install python-catkin-tools clang-format-3.9
+RUN apt -y update && apt -y install python-catkin-tools clang-format-3.9
 RUN cd ~/ \
         && mkdir ws_moveit \
         && cd ws_moveit \
@@ -17,7 +17,7 @@ RUN cd ~/ \
                 chomp_motion_planner
 
 # Install OMPL (http://ompl.kavrakilab.org/installation.html):
-RUN apt -y install pkg-config libboost-serialization-dev libboost-filesystem-dev libboost-system-dev libboost-program-options-dev libboost-test-dev libode-dev wget
+RUN apt -y update && apt -y install pkg-config libboost-serialization-dev libboost-filesystem-dev libboost-system-dev libboost-program-options-dev libboost-test-dev libode-dev wget
 RUN cd ~/ws_moveit/src \
         && git clone https://github.com/cairo-robotics/ompl.git \
         && cd ompl \
@@ -32,6 +32,9 @@ RUN cd ~/ws_moveit/src/ompl \
         && wget https://raw.githubusercontent.com/ros-gbp/ompl-release/debian/kinetic/xenial/ompl/package.xml
 
 # Finally install MoveIt! with our source OMPL
-RUN cd ~/ws_moveit \
-        && catkin clean -y \
-        && catkin build
+RUN cd ~/ws_moveit && catkin build
+
+# Copy over config files
+RUN mkdir ~/ws_moveit/config
+COPY ./panda_demo.rviz ~/ws_moveit/config/panda_demo.rviz
+COPY ./pillar.scene ~/ws_moveit/config/pillar.scene

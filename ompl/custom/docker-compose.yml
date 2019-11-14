@@ -4,9 +4,11 @@ services:
     image: jgkawell/ompl-dev:custom
     build:
       context: ../
-      dockerfile: ./Dockerfile
+      dockerfile: ./custom/Dockerfile
     container_name: ompl-dev-custom
     environment:
+      - "DISPLAY=${DISPLAY}"
       - "QT_GRAPHICSSYSTEM=native"
+      - "CONTAINER_NAME=ompl-dev-custom"
     stdin_open: true
     tty: true
