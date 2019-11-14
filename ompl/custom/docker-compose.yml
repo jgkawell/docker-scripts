@@ -1,11 +1,11 @@
 version: '3'
 services:
   main:
-    image: jgkawell/ompl-dev:basic
+    image: jgkawell/ompl-dev:custom
     build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: ompl-dev-basic
+      context: ../
+      dockerfile: ./Dockerfile
+    container_name: ompl-dev-custom
     environment:
       - "QT_GRAPHICSSYSTEM=native"
     stdin_open: true

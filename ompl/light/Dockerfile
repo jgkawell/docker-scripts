@@ -1,12 +1,6 @@
 # We must build off of Ubuntu 16.04 for ROS Kinetic
 FROM osrf/ros:kinetic-desktop
 
-# Config file for easier tmux usage
-COPY ./.tmux.conf /root/.tmux.conf
-
-# Volume needed for X-server GUI passing to OS
-VOLUME "/tmp/.X11-unix:/tmp/.X11-unix"
-
 # Install misc needed packages
 RUN apt -y update && apt -y install git build-essential cmake tmux
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
@@ -37,8 +31,7 @@ RUN cd ~/ws_moveit/src \
 RUN cd ~/ws_moveit \
         && sed -i "s|\${catkin_INCLUDE_DIRS}|\${OMPL_INCLUDE_DIRS} |g" ./src/moveit/moveit_planners/ompl/CMakeLists.txt \
         && sed -i "s|\${OMPL_INCLUDE_DIRS})|\${catkin_INCLUDE_DIRS}) |g" ./src/moveit/moveit_planners/ompl/CMakeLists.txt
-RUN cd ~/ws_moveit/src/ompl \
-        && wget https://raw.githubusercontent.com/ros-gbp/ompl-release/debian/kinetic/xenial/ompl/package.xml
+COPY ../package.xml ~/ws_moveit/src/ompl/package.xml
 
 # Install Intera SDK (https://sdk.rethinkrobotics.com/intera/Workstation_Setup)
 RUN apt -y update && apt -y install git-core python-argparse python-vcstools python-rosdep ros-kinetic-control-msgs ros-kinetic-joystick-drivers ros-kinetic-xacro ros-kinetic-tf2-ros ros-kinetic-rviz ros-kinetic-cv-bridge ros-kinetic-actionlib ros-kinetic-actionlib-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-trajectory-msgs ros-kinetic-rospy-message-converter
@@ -70,16 +63,27 @@ RUN cd ~/ws_moveit/src \
 RUN cd ~/ws_moveit/src/sawyer_moveit/sawyer_moveit_config/config \
         && sed -i "s|type: geometric::RRTstar|type: geometric::RRTstar\n    optimization_objective: CustomObjective|g" ./ompl_planning.yaml
 
+# Update orocos-kdl
+RUN apt -y install ros-kinetic-orocos-kdl
+
 # Clone the OMPL cost server demos
 RUN cd  ~/ws_moveit/src \
-        && git clone https://github.com/cairo-robotics/ompl_cost_server_demos.git \
-        && catkin build
+        && git clone https://github.com/cairo-robotics/ompl_cost_server_demos.git
+
+# Finally build the workspace
+RUN catkin build
 
 # Copy over config files
 RUN mkdir ~/ws_moveit/config
-COPY ./panda_demo.rviz ~/ws_moveit/config/panda_demo.rviz
-COPY ./sawyer_moveit.rviz ~/ws_moveit/config/sawyer_moveit.rviz
-COPY ./panda_pillar.scene ~/ws_moveit/config/panda_pillar.scene
+COPY ../panda_demo.rviz ~/ws_moveit/config/panda_demo.rviz
+COPY ../sawyer_moveit.rviz ~/ws_moveit/config/sawyer_moveit.rviz
+COPY ../panda_pillar.scene ~/ws_moveit/config/panda_pillar.scene
+
+# Config file for easier tmux usage
+COPY ../.tmux.conf /root/.tmux.conf
+
+# Volume needed for X-server GUI passing to OS
+VOLUME "/tmp/.X11-unix:/tmp/.X11-unix"
 
 # Cleanup apt
 RUN rm -rf /var/lib/apt/lists/*
