@@ -47,3 +47,6 @@ RUN cd  ~/ws_moveit && catkin build
 
 # Copy over config files
 COPY ./custom/sawyer_moveit.rviz ~/ws_moveit/config/sawyer_moveit.rviz
+
+# Clean up apt
+RUN rm -rf /var/lib/apt/lists/*

@@ -35,6 +35,12 @@ RUN cd ~/ws_moveit/src/ompl \
 RUN cd ~/ws_moveit && catkin build
 
 # Copy over config files
-RUN mkdir ~/ws_moveit/config
+RUN cd ~/ws_moveit && mkdir config
 COPY ./panda_demo.rviz ~/ws_moveit/config/panda_demo.rviz
 COPY ./pillar.scene ~/ws_moveit/config/pillar.scene
+
+# Source the workspace with each new terminal
+RUN echo "source ~/ws_moveit/devel/setup.bash" >> ~/.bashrc
+
+# Clean up apt
+RUN rm -rf /var/lib/apt/lists/*
