@@ -1,8 +1,8 @@
 version: '3'
 services:
   main:
-    image: jgkawell:ros-dev
-    build: 
+    image: jgkawell/ros-dev
+    build:
       context: .
       dockerfile: Dockerfile
     container_name: ros-dev
