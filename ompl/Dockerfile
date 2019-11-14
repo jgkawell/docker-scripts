@@ -36,8 +36,8 @@ RUN cd ~/ws_moveit && catkin build
 
 # Copy over config files
 RUN cd ~/ws_moveit && mkdir config
-COPY ./panda_demo.rviz ~/ws_moveit/config/panda_demo.rviz
-COPY ./pillar.scene ~/ws_moveit/config/pillar.scene
+COPY ./panda_demo.rviz /root/ws_moveit/config/panda_demo.rviz
+COPY ./pillar.scene /root/ws_moveit/config/pillar.scene
 
 # Source the workspace with each new terminal
 RUN echo "source ~/ws_moveit/devel/setup.bash" >> ~/.bashrc
