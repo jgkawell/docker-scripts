@@ -1,16 +1,11 @@
 # Build from basic ompl dev box
 FROM jgkawell/ompl-dev:basic
 
-# Setup OMPL with custom code:
-RUN cd ~/ws_moveit/src/ompl \
-        && git reset --hard \
-        && git checkout custom-cost \
-        && rm package.xml
-
 # Setup Intera SDK (https://sdk.rethinkrobotics.com/intera/Workstation_Setup)
 RUN apt -y update && apt -y install git-core python-argparse python-vcstools python-rosdep ros-kinetic-control-msgs ros-kinetic-joystick-drivers ros-kinetic-xacro ros-kinetic-tf2-ros ros-kinetic-rviz ros-kinetic-cv-bridge ros-kinetic-actionlib ros-kinetic-actionlib-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-trajectory-msgs ros-kinetic-rospy-message-converter
 RUN cd ~/ws_moveit/src \
-        && git clone https://github.com/RethinkRobotics/sawyer_robot.git \
+        && git clone https://github.com/cairo-robotics/sawyer_moveit.git \
+        && git checkout custom-cost \
         && wstool merge sawyer_robot/sawyer_robot.rosinstall \
         && wstool update
 
@@ -28,17 +23,16 @@ RUN cd ~/ws_moveit/src \
         && wstool merge sawyer_simulator/sawyer_simulator.rosinstall \
         && wstool update
 
-# Setup Sawyer MoveIt (https://sdk.rethinkrobotics.com/intera/MoveIt_Tutorial)
-RUN cd ~/ws_moveit/src \
-        && wstool merge https://raw.githubusercontent.com/RethinkRobotics/sawyer_moveit/master/sawyer_moveit.rosinstall \
-        && wstool update
+# Setup OMPL with custom code:
+RUN cd ~/ws_moveit/src/ompl \
+        && git reset --hard \
+        && git checkout custom-cost \
+        && rm package.xml
 
-# Add CustomObjective to OMPL in Sawyer MoveIt
-RUN cd ~/ws_moveit/src/sawyer_moveit/sawyer_moveit_config/config \
-        && sed -i "s|type: geometric::RRTstar|type: geometric::RRTstar\n    optimization_objective: CustomObjective|g" ./ompl_planning.yaml
-RUN cd ~/ws_moveit/src/moveit/moveit_planners/ompl/ompl_interface/src \
-        && sed -i "s|\#include \"ompl/base/objectives/MaximizeMinClearanceObjective.h\"|\#include \"ompl/base/objectives/MaximizeMinClearanceObjective.h\"\n\#include \"ompl/base/objectives/CustomObjective.h\" \/\/ Add our new objective|g" ./model_based_planning_context.cpp \
-        && sed -i "s|objective.reset(new ompl::base::MaximizeMinClearanceObjective(ompl_simple_setup_->getSpaceInformation()));\n}|objective.reset(new ompl::base::MaximizeMinClearanceObjective(ompl_simple_setup_->getSpaceInformation()));\n}\nelse if (optimizer == \"CustomObjective\")\n{\n  objective.reset(new ompl::base::CustomObjective(ompl_simple_setup_->getSpaceInformation()));\n}|g" ./model_based_planning_context.cpp
+# Setup MoveIt! with custom code:
+RUN cd ~/ws_moveit/src/moveit \
+        && git reset --hard \
+        && get checkout custom-cost
 
 # Clone the OMPL cost server demos
 RUN cd  ~/ws_moveit/src \
@@ -46,7 +40,7 @@ RUN cd  ~/ws_moveit/src \
 
 # Finally build the workspace (after copying the new package info)
 COPY ./custom/package.xml /root/ws_moveit/src/ompl/package.xml
-RUN cd  ~/ws_moveit && catkin clean -y && catkin build
+RUN cd ~/ws_moveit && /bin/bash -c "source devel/setup.bash" && catkin clean -y && catkin build
 
 # Copy over config files
 COPY ./custom/sawyer_moveit.rviz /root/ws_moveit/config/sawyer_moveit.rviz

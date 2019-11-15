@@ -7,7 +7,7 @@ RUN cd ~/ \
         && mkdir ws_moveit \
         && cd ws_moveit \
         && wstool init src \
-        && wstool merge -t src https://raw.githubusercontent.com/ros-planning/moveit/master/moveit.rosinstall \
+        && wstool merge -t src https://raw.githubusercontent.com/cairo-robotics/moveit/custom-cost/moveit.rosinstall \
         && wstool update -t src \
         && rosdep -y install --from-paths src --ignore-src --rosdistro kinetic \
         && catkin config --extend /opt/ros/kinetic --cmake-args -DCMAKE_BUILD_TYPE=Release \
