@@ -2,7 +2,7 @@
 
 This is a repository for helpful Docker scripts and tools.
 
-# How to use
+## How to use
 
 Within this repository are Dockerfiles and docker-compose files that will build different images for ROS and OMPL development along with the needed tools for MoveIt!, Sawyer, and CC-LfD. While you can simply build these images, this takes a while and it is much easier to simply pull them from Docker Hub as they are already stored there.
 
