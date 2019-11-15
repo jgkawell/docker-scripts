@@ -6,7 +6,7 @@ This is a repository for helpful Docker scripts and tools.
 
 Within this repository are Dockerfiles and docker-compose files that will build different images for ROS and OMPL development along with the needed tools for MoveIt!, Sawyer, and CC-LfD. While you can simply build these images, this takes a while and it is much easier to simply pull them from Docker Hub as they are already stored there.
 
-I would suggest that you pick which image you want (by reading the README's within each folder) and then simply start them with the below commands:
+I would suggest that you pick which image you want (by reading the README's within each folder) and then simply pull them with the below commands:
 
 ```
 docker pull jgkawell/{repository}:{tag}
@@ -23,6 +23,12 @@ export DISPLAY={your_ip_address}:0.0
 ```
 
 You'll also need an X server application on your host for this GUI forwarding to work.
+
+Once the `DISPLAY` is set, you can start a container using the provided docker-compose files in each folder. Just make sure you run the below command within the directory of the image you would like to run:
+
+```
+docker-compose up
+```
 
 NOTE: You may also need to set a volume for the X11 server to function properly. I haven't had any issues with it running Docker Desktop on WSL 2 with a Windows host, but your milage may vary. Below is the volume that needs to be set:
 
