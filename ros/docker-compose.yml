@@ -1,7 +1,7 @@
 version: '3'
 services:
   main:
-    image: jgkawell/ros-dev
+    image: jgkawell/ros-dev:latest
     build:
       context: .
       dockerfile: Dockerfile
