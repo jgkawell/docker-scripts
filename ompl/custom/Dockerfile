@@ -5,7 +5,9 @@ FROM jgkawell/ompl-dev:basic
 RUN apt -y update && apt -y install git-core python-argparse python-vcstools python-rosdep ros-kinetic-control-msgs ros-kinetic-joystick-drivers ros-kinetic-xacro ros-kinetic-tf2-ros ros-kinetic-rviz ros-kinetic-cv-bridge ros-kinetic-actionlib ros-kinetic-actionlib-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-trajectory-msgs ros-kinetic-rospy-message-converter
 RUN cd ~/ws_moveit/src \
         && git clone https://github.com/cairo-robotics/sawyer_moveit.git \
+        && cd sawyer_robot \
         && git checkout custom-cost \
+        && cd .. \
         && wstool merge sawyer_robot/sawyer_robot.rosinstall \
         && wstool update
 
@@ -23,24 +25,12 @@ RUN cd ~/ws_moveit/src \
         && wstool merge sawyer_simulator/sawyer_simulator.rosinstall \
         && wstool update
 
-# Setup OMPL with custom code:
-RUN cd ~/ws_moveit/src/ompl \
-        && git reset --hard \
-        && git checkout custom-cost \
-        && rm package.xml
-
-# Setup MoveIt! with custom code:
-RUN cd ~/ws_moveit/src/moveit \
-        && git reset --hard \
-        && get checkout custom-cost
-
 # Clone the OMPL cost server demos
 RUN cd  ~/ws_moveit/src \
         && git clone https://github.com/cairo-robotics/ompl_cost_server_demos.git
 
-# Finally build the workspace (after copying the new package info)
-COPY ./custom/package.xml /root/ws_moveit/src/ompl/package.xml
-RUN cd ~/ws_moveit && /bin/bash -c "source devel/setup.bash" && catkin clean -y && catkin build
+# Finally build the workspace
+RUN cd ~/ws_moveit && catkin clean -y && catkin build
 
 # Copy over config files
 COPY ./custom/sawyer_moveit.rviz /root/ws_moveit/config/sawyer_moveit.rviz

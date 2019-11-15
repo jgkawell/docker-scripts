@@ -21,15 +21,12 @@ RUN apt -y update && apt -y install pkg-config libboost-serialization-dev libboo
 RUN cd ~/ws_moveit/src \
         && git clone https://github.com/cairo-robotics/ompl.git \
         && cd ompl \
-        && git checkout tags/1.2.3
+        && git checkout custom-cost
 
 # Make some changes to build files so OMPL will be found by MoveIt!
 RUN cd ~/ws_moveit \
-        && sed -i "s|DESTINATION \${CMAKE_INSTALL_LIBDIR}|DESTINATION /opt/ros/kinetic/lib/x86_64-linux-gnu |g" ./src/ompl/src/ompl/CMakeLists.txt \
-        && sed -i "s|\${catkin_INCLUDE_DIRS}|\${OMPL_INCLUDE_DIRS} |g" ./src/moveit/moveit_planners/ompl/CMakeLists.txt \
-        && sed -i "s|\${OMPL_INCLUDE_DIRS})|\${catkin_INCLUDE_DIRS}) |g" ./src/moveit/moveit_planners/ompl/CMakeLists.txt
-RUN cd ~/ws_moveit/src/ompl \
-        && wget https://raw.githubusercontent.com/ros-gbp/ompl-release/debian/kinetic/xenial/ompl/package.xml
+        && sed -i "s|DESTINATION \${CMAKE_INSTALL_LIBDIR}|DESTINATION /opt/ros/kinetic/lib/x86_64-linux-gnu |g" ./src/ompl/src/ompl/CMakeLists.txt
+COPY ./custom/package.xml /root/ws_moveit/src/ompl/package.xml
 
 # Finally install MoveIt! with our source OMPL
 RUN cd ~/ws_moveit && catkin build
