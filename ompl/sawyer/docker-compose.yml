@@ -1,0 +1,14 @@
+version: '3'
+services:
+  main:
+    image: jgkawell/ompl-dev:sawyer
+    build:
+      context: ../
+      dockerfile: ./sawyer/Dockerfile
+    container_name: ompl-dev-sawyer
+    environment:
+      - "DISPLAY=${DISPLAY}"
+      - "QT_GRAPHICSSYSTEM=native"
+      - "CONTAINER_NAME=ompl-dev-sawyer"
+    stdin_open: true
+    tty: true
