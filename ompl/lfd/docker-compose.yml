@@ -1,14 +1,14 @@
 version: '3'
 services:
   main:
-    image: jgkawell/ompl-dev:custom
+    image: jgkawell/ompl-dev:lfd
     build:
       context: ../
-      dockerfile: ./custom/Dockerfile
-    container_name: ompl-dev-custom
+      dockerfile: ./lfd/Dockerfile
+    container_name: ompl-dev-lfd
     environment:
       - "DISPLAY=${DISPLAY}"
       - "QT_GRAPHICSSYSTEM=native"
-      - "CONTAINER_NAME=ompl-dev-custom"
+      - "CONTAINER_NAME=ompl-dev-lfd"
     stdin_open: true
     tty: true
