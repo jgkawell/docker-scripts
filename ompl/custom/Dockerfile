@@ -4,10 +4,7 @@ FROM jgkawell/ompl-dev:basic
 # Setup Intera SDK (https://sdk.rethinkrobotics.com/intera/Workstation_Setup)
 RUN apt -y update && apt -y install git-core python-argparse python-vcstools python-rosdep ros-kinetic-control-msgs ros-kinetic-joystick-drivers ros-kinetic-xacro ros-kinetic-tf2-ros ros-kinetic-rviz ros-kinetic-cv-bridge ros-kinetic-actionlib ros-kinetic-actionlib-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-trajectory-msgs ros-kinetic-rospy-message-converter
 RUN cd ~/ws_moveit/src \
-        && git clone https://github.com/cairo-robotics/sawyer_moveit.git \
-        && cd sawyer_robot \
-        && git checkout custom-cost \
-        && cd .. \
+        && git clone https://github.com/RethinkRobotics/sawyer_robot.git \
         && wstool merge sawyer_robot/sawyer_robot.rosinstall \
         && wstool update
 
@@ -23,6 +20,15 @@ RUN apt -y update && apt -y install gazebo7 ros-kinetic-qt-build ros-kinetic-gaz
 RUN cd ~/ws_moveit/src \
         && git clone https://github.com/RethinkRobotics/sawyer_simulator.git \
         && wstool merge sawyer_simulator/sawyer_simulator.rosinstall \
+        && wstool update
+
+# Install Sawyer MoveIt
+RUN cd ~/ws_moveit/src \
+        && git clone https://github.com/cairo-robotics/sawyer_moveit.git \
+        && cd sawyer_moveit \
+        && git checkout custom-cost \
+        && cd .. \
+        && wstool merge sawyer_moveit/sawyer_moveit.rosinstall \
         && wstool update
 
 # Clone the OMPL cost server demos
