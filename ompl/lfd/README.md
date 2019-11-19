@@ -34,7 +34,7 @@ docker exec -it ompl-dev-lfd bash
 
 Prerequisites: You'll need Ubuntu 16.04 or 18.04 with an Nvidia graphics card and compatible drivers (I don't know all the Linux distros and drivers that work with this method, but let me know which ones you have if it doesn't work).
 
-You'll need to have Docker installed on your Linux host machine. Follow the installation instruction [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/)/
+You'll need to have Docker installed on your Linux host machine. Follow the installation instruction [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
 
 For Linux we can leverage the hardware acceleration of our host to greatly improve the performance of the GUI applications (rviz, Gazebo, etc.).
 
