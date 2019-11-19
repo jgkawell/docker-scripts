@@ -6,13 +6,42 @@ Additionally, it has the needed tools from Rethink Robotics loaded for Sawyer de
 
 In addition to Sawyer, this image also has the needed packages for CC-LfD from CAIRO Robotics and the development code for Feedback-Based CC-LfD.
 
-## Setup
+## Install
 
-I would suggest pulling this image from Docker Hub instead of building locally from the Dockerfile since it take a bit as long as your network is fast:
+I would suggest pulling this image from Docker Hub instead of building locally from the Dockerfile as long as your network is fast. To actually build the image can take a while:
 
 ```
 docker pull jgkawell/ompl-dev:lfd
 ```
+
+## Setup (Linux host)
+
+For Linux we can leverage the hardware acceleration of our host to greatly improve the performance of the GUI applications (rviz, Gazebo, etc.).
+
+To do this, we need to do a bit of extra configuration than on Windows. We'll need a program called `rocker` from [OSRF](https://www.openrobotics.org/) that will help setup the needed components for our Docker images.
+
+The program is distributed through the ROS repositories so if you don't have those configured go [here](http://wiki.ros.org/kinetic/Installation/Ubuntu). Then run the command below:
+
+```
+sudo apt-get install python3-rocker
+```
+
+More installation options and info can be found at the `rocker` GitHub [here](https://github.com/osrf/rocker).
+
+Once that is installed, you should be able to simply source the setup script provided in this repo and then run the launch script also provided:
+
+```
+source setup_xauth.sh
+./run_nvidia.sh
+```
+
+Those commands should create your container named `ompl-dev-lfd` and automatically start it up. You can then jump into the box:
+
+```
+docker exec -it ompl-dev-lfd bash
+```
+
+## Setup (Windows host)
 
 Once you've pulled the image you're ready to start the container using docker-compose:
 
