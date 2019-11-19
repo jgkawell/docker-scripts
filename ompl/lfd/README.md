@@ -14,7 +14,27 @@ I would suggest pulling this image from Docker Hub instead of building locally f
 docker pull jgkawell/ompl-dev:lfd
 ```
 
+## Setup (Windows host)
+
+You'll need to have Docker Desktop installed on your Windows host machine. Follow the installation instruction [here](https://docs.docker.com/docker-for-windows/install/).
+
+Once you've pulled the image you're ready to start the container using docker-compose:
+
+```
+docker-compose up
+```
+
+Then, in another terminal, SSH into the box:
+
+```
+docker exec -it ompl-dev-lfd bash
+```
+
 ## Setup (Linux host)
+
+Prerequisites: You'll need Ubuntu 16.04 or 18.04 with an Nvidia graphics card and compatible drivers (I don't know all the Linux distros and drivers that work with this method, but let me know which ones you have if it doesn't work).
+
+You'll need to have Docker installed on your Linux host machine. Follow the installation instruction [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/)/
 
 For Linux we can leverage the hardware acceleration of our host to greatly improve the performance of the GUI applications (rviz, Gazebo, etc.).
 
@@ -41,21 +61,21 @@ Those commands should create your container named `ompl-dev-lfd` and automatical
 docker exec -it ompl-dev-lfd bash
 ```
 
-## Setup (Windows host)
+## How to use
 
-Once you've pulled the image you're ready to start the container using docker-compose:
+After you've done the setup steps (for either Windows or Linux), you can simply start the container with a single command any other time you want to use it:
 
 ```
-docker-compose up
+docker start ompl-dev-lfd
 ```
 
-Then, in another terminal, SSH into the box:
+And then jump into the container using the previously listed command:
 
 ```
 docker exec -it ompl-dev-lfd bash
 ```
 
-## How to use
+## Using the tools
 
 The basics of how to use this are described [here](../sawyer/README.md).
 
