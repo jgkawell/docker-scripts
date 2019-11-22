@@ -1,5 +1,5 @@
 # Build from ros dev box
-FROM jgkawell/ros-dev:latest
+FROM jgkawell/ros-dev:nvidia
 
 # Install MoveIt! (https://moveit.ros.org/install/source/):
 RUN apt -y update && apt -y install python-catkin-tools clang-format-3.9
@@ -24,7 +24,7 @@ RUN cd  ~/ws_moveit/src \
         && git checkout custom-cost
 
 # Copy in package.xml into OMPL for ROS building
-COPY ./package.xml /root/ws_moveit/src/ompl/package.xml
+COPY ./config/package.xml /root/ws_moveit/src/ompl/package.xml
 
 # Finally install MoveIt! with our source OMPL
 RUN cd ~/ws_moveit && catkin build

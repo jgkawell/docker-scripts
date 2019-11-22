@@ -1,5 +1,5 @@
 # Build from 16.04 for ROS Kinetic
-FROM nvidia/opengl:base-ubuntu16.04
+FROM ubuntu:xenial
 
 # Install misc needed packages
 RUN apt -y update && apt -y install git build-essential cmake tmux
