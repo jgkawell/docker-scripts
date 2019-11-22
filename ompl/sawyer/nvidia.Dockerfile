@@ -1,5 +1,5 @@
 # Build from base ompl dev box
-FROM jgkawell/ompl-dev:base
+FROM jgkawell/ompl-dev:base-nvidia
 
 # Setup Intera SDK (https://sdk.rethinkrobotics.com/intera/Workstation_Setup)
 RUN apt -y update && apt -y install git-core python-argparse python-vcstools python-rosdep ros-kinetic-control-msgs ros-kinetic-joystick-drivers ros-kinetic-xacro ros-kinetic-tf2-ros ros-kinetic-rviz ros-kinetic-cv-bridge ros-kinetic-actionlib ros-kinetic-actionlib-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-trajectory-msgs ros-kinetic-rospy-message-converter

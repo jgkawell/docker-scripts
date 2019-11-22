@@ -1,18 +1,18 @@
 version: '3'
 services:
   main:
-    image: jgkawell/ompl-dev:lfd-nvidia
+    image: jgkawell/ompl-dev:base-nvidia
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTH}:${XAUTH}"
     build:
-      context: ../
-      dockerfile: ./lfd/nvidia.Dockerfile
-    container_name: ompl-dev-lfd-nvidia
+      context: .
+      dockerfile: nvidia.Dockerfile
+    container_name: ompl-dev-base-nvidia
     environment:
       - "DISPLAY=${DISPLAY}"
       - "QT_X11_NO_MITSHM=1"
-      - "CONTAINER_NAME=ompl-dev-lfd-nvidia"
+      - "CONTAINER_NAME=ompl-dev-base-nvidia"
       - "XAUTHORITY=${XAUTH}"
     stdin_open: true
     tty: true
