@@ -1,8 +1,11 @@
+# Build from Ubuntu 16.04
 FROM ubuntu:xenial
 
-COPY ./.tmux.conf /root/.tmux.conf
+# Install misc needed packages
+RUN apt -y update && apt -y install git build-essential cmake tmux x11-apps
 
-VOLUME "/tmp/.X11-unix:/tmp/.X11-unix"
+# Config file for easier tmux usage
+COPY ./.tmux.conf ~/.tmux.conf
 
-RUN apt update -y
-RUN apt install -y x11-apps tmux
+# Clean up apt
+RUN rm -rf /var/lib/apt/lists/*
