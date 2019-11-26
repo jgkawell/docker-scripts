@@ -32,6 +32,7 @@ docker exec -it ompl-dev-sawyer bash
 Prerequisites: Make sure you've set up things properly [here](../../docs/hardware-acceleration-linux.md).
 
 ```
+xhost +local:root
 source ./tools/linux/setup_xauth.sh
 docker-compose -f nvidia.docker-compose up
 ```
@@ -39,7 +40,7 @@ docker-compose -f nvidia.docker-compose up
 Then, in another terminal, start a shell on the box:
 
 ```
-docker exec -it ompl-dev-sawyer-nvidia bash
+docker exec -it ros-dev-nvidia bash
 ```
 
 ## How to use

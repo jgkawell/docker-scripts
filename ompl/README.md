@@ -32,6 +32,7 @@ docker exec -it ompl-dev bash
 Prerequisites: Make sure you've set up things properly [here](../docs/hardware-acceleration-linux.md).
 
 ```
+xhost +local:root
 source ./tools/linux/setup_xauth.sh
 docker-compose -f nvidia.docker-compose up
 ```
