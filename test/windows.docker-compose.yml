@@ -1,7 +1,7 @@
 version: '3'
 services:
   main:
-    image: jgkawell:test
+    image: jgkawell/test:latest
     build:
       context: .
       dockerfile: Dockerfile
