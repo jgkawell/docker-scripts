@@ -6,6 +6,8 @@ Within this repository are Dockerfiles and docker-compose files that will build 
 
 ## How to use
 
+Before continuing, I highly recommend reading through [the full documentation](./docs/README.md). It will explain how to configure your system for hosting these containers as well as walk you though simply tutorials on how to use the tools provided.
+
 ### Download the image
 
 I would suggest that you pick which image you want (by reading the README's within each folder) and then simply pull them with the below commands:
