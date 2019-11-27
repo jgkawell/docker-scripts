@@ -21,7 +21,6 @@ Once you've pulled the image you're ready to start the container, but first be s
 ```
 # For a Linux host
 export DISPLAY=:0
-./tools/linux/setup_xauth.sh # needed for X server
 
 # For a Windows host
 [Environment]::SetEnvironmentVariable("DISPLAY", "{your_ip_address}:0.0")
@@ -38,9 +37,12 @@ For a Linux host, the setup is a little more complicated since we can use hardwa
 Once all that is done, you can start a container using the provided docker-compose files in each folder. Just make sure you run the below command within the directory of the image you would like to run:
 
 ```
-# For a Linux host with Nvidia card
+# For a Linux host with an Nvidia dedicated GPU
+docker-compose -f nvidia.docker-compose.yml up
+
+# For a Linux host with an Intel integrated GPU
 docker-compose -f nvidia.docker-compose.yml up
 
 # For a Windows host
-docker-compose up
+docker-compose -f windows.docker-compose.yml up
 ```
