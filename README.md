@@ -41,7 +41,7 @@ Once all that is done, you can start a container using the provided docker-compo
 docker-compose -f nvidia.docker-compose.yml up
 
 # For a Linux host with an Intel integrated GPU
-docker-compose -f nvidia.docker-compose.yml up
+docker-compose -f intel.docker-compose.yml up
 
 # For a Windows host
 docker-compose -f windows.docker-compose.yml up
