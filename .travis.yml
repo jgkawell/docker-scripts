@@ -5,8 +5,14 @@ services:
 
 script:
   - echo "Building Intel/Windows images..."
-  - docker-compose -f x11/intel.docker-compose.yml build
-  - docker-compose -f ros/intel.docker-compose.yml build
+  - docker pull jgkawell/x11:latest
+  - docker build -f ./x11/Dockerfile --cache-from jgkawell/x11:latest ./x11
+
+  - docker pull jgkawell/ros-dev:latest
+  - docker build -f ./ros/Dockerfile --cache-from jgkawell/ros-dev:latest ./ros
+
+
+  - docker build -f ./ompl/Dockerfile --cache-from jgkawell/ompl-dev:latest ./ros
   - docker-compose -f ompl/intel.docker-compose.yml build
   - docker-compose -f ompl/sawyer/intel.docker-compose.yml build
   - docker-compose -f ompl/lfd/intel.docker-compose.yml build
