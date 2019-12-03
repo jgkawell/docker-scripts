@@ -4,7 +4,18 @@ services:
   - docker
 
 script:
+  - echo "Building Intel/Windows images..."
   - docker-compose -f test/intel.docker-compose.yml build
+  - docker-compose -f ros/intel.docker-compose.yml build
+  - docker-compose -f ompl/intel.docker-compose.yml build
+  - docker-compose -f ompl/sawyer/intel.docker-compose.yml build
+  - docker-compose -f ompl/lfd/intel.docker-compose.yml build
+  - echo "Building Nvidia images..."
+  - docker-compose -f test/nvidia.docker-compose.yml build
+  - docker-compose -f ros/nvidia.docker-compose.yml build
+  - docker-compose -f ompl/nvidia.docker-compose.yml build
+  - docker-compose -f ompl/sawyer/nvidia.docker-compose.yml build
+  - docker-compose -f ompl/lfd/nvidia.docker-compose.yml build
 
 deploy:
   provider: script
