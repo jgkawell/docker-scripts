@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/jgkawell/docker-scripts.svg?branch=master)](https://travis-ci.com/jgkawell/docker-scripts)
+
 # docker-scripts
 
 This is a repository for helpful Docker scripts and tools.
