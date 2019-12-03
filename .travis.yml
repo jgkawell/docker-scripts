@@ -1,0 +1,13 @@
+language: python
+
+services:
+  - docker
+
+script:
+  - docker-compose -f test/intel.docker-compose.yml build
+
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master
