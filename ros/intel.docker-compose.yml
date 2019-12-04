@@ -1,7 +1,7 @@
 version: '3'
 services:
   main:
-    image: jgkawell/ros:latest
+    image: jgkawell/ros:base
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
     devices:

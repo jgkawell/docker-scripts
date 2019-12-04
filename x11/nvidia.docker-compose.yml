@@ -1,15 +1,15 @@
 version: '3'
 services:
   main:
-    image: jgkawell/x11:nvidia
+    image: jgkawell/x11:base-nvidia
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTH}:${XAUTH}"
-    container_name: x11-nvidia
+    container_name: x11-base-nvidia
     environment:
       - "DISPLAY=${DISPLAY}"
       - "QT_X11_NO_MITSHM=1"
-      - "CONTAINER_NAME=x11-nvidia"
+      - "CONTAINER_NAME=x11-base-nvidia"
       - "XAUTHORITY=${XAUTH}"
       - "NVIDIA_VISIBLE_DEVICES=all"
       - "NVIDIA_DRIVER_CAPABILITIES=all"
