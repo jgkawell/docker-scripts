@@ -2,9 +2,6 @@ version: '3'
 services:
   main:
     image: jgkawell/ompl:base
-    build:
-      context: .
-      dockerfile: Dockerfile
     container_name: ompl-base
     environment:
       - "DISPLAY=${DISPLAY}"

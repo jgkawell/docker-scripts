@@ -2,9 +2,6 @@ version: '3'
 services:
   main:
     image: jgkawell/ompl:sawyer
-    build:
-      context: ../
-      dockerfile: ./sawyer/Dockerfile
     container_name: ompl-sawyer
     environment:
       - "DISPLAY=${DISPLAY}"

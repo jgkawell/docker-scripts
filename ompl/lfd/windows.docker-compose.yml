@@ -2,9 +2,6 @@ version: '3'
 services:
   main:
     image: jgkawell/ompl:lfd
-    build:
-      context: ../
-      dockerfile: ./lfd/Dockerfile
     container_name: ompl-lfd
     environment:
       - "DISPLAY=${DISPLAY}"

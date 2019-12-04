@@ -5,16 +5,13 @@ services:
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTH}:${XAUTH}"
-    build:
-      context: ../
-      dockerfile: ./sawyer/nvidia.Dockerfile
     container_name: ompl-sawyer-nvidia
     environment:
       - "DISPLAY=${DISPLAY}"
       - "QT_X11_NO_MITSHM=1"
       - "CONTAINER_NAME=ompl-sawyer-nvidia"
       - "XAUTHORITY=${XAUTH}"
-      - "ENV NVIDIA_VISIBLE_DEVICES=all"
+      - "NVIDIA_VISIBLE_DEVICES=all"
       - "NVIDIA_DRIVER_CAPABILITIES=all"
     stdin_open: true
     tty: true
