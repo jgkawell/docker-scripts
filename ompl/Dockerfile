@@ -1,5 +1,7 @@
+### BASE STAGE ###
+
 # Build from ros dev box
-FROM jgkawell/ros-dev:latest
+FROM jgkawell/ros:latest AS base
 
 # Install MoveIt! (https://moveit.ros.org/install/source/):
 RUN apt -y update && apt -y install python-catkin-tools clang-format-3.9
@@ -39,3 +41,13 @@ RUN echo "source ~/ws_moveit/devel/setup.bash" >> ~/.bashrc
 
 # Clean up apt
 RUN rm -rf /var/lib/apt/lists/*
+
+
+### NVIDIA STAGE ###
+
+# Extra needed setup for Nvidia-based graphics
+FROM base AS nvidia
+
+# Copy over needed OpenGL files from Nvidia's image
+COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 /usr/local /usr/local
+COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 /etc/ld.so.conf.d/glvnd.conf /etc/ld.so.conf.d/glvnd.conf

@@ -1,5 +1,7 @@
+### BASE STAGE ###
+
 # Build from base ompl dev box
-FROM jgkawell/ompl-dev:base
+FROM jgkawell/ompl:base AS base
 
 # Setup Intera SDK (https://sdk.rethinkrobotics.com/intera/Workstation_Setup)
 RUN apt -y update && apt -y install git-core python-argparse python-vcstools python-rosdep ros-kinetic-control-msgs ros-kinetic-joystick-drivers ros-kinetic-xacro ros-kinetic-tf2-ros ros-kinetic-rviz ros-kinetic-cv-bridge ros-kinetic-actionlib ros-kinetic-actionlib-msgs ros-kinetic-dynamic-reconfigure ros-kinetic-trajectory-msgs ros-kinetic-rospy-message-converter
@@ -43,3 +45,13 @@ COPY ./config/sawyer_moveit.rviz /root/ws_moveit/config/sawyer_moveit.rviz
 
 # Clean up apt
 RUN rm -rf /var/lib/apt/lists/*
+
+
+### NVIDIA STAGE ###
+
+# Extra needed setup for Nvidia-based graphics
+FROM base AS nvidia
+
+# Copy over needed OpenGL files from Nvidia's image
+COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 /usr/local /usr/local
+COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 /etc/ld.so.conf.d/glvnd.conf /etc/ld.so.conf.d/glvnd.conf
