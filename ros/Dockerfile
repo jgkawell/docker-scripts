@@ -10,7 +10,7 @@ RUN apt -y update && apt -y install git build-essential cmake tmux
 RUN echo "source /opt/ros/kinetic/setup.bash" >> /root/.bashrc
 
 # Config file for easier tmux usage
-COPY ./.tmux.conf /root/.tmux.conf
+COPY ./config/.tmux.conf /root/.tmux.conf
 
 # Clean up apt
 RUN rm -rf /var/lib/apt/lists/*
