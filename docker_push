@@ -1,22 +1,18 @@
 #!/bin/bash
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-
 # Push basic x11 images
 docker push jgkawell/x11:latest
 docker push jgkawell/x11:nvidia
 
-
 # Push basic ROS images
-docker push jgkawell/ros-dev:latest
-docker push jgkawell/ros-dev:nvidia
-
+docker push jgkawell/ros:latest
+docker push jgkawell/ros:nvidia
 
 # Push OMPL images
-docker push jgkawell/ompl-dev:base
-docker push jgkawell/ompl-dev:sawyer
-docker push jgkawell/ompl-dev:lfd
-
-docker push jgkawell/ompl-dev:base-nvidia
-docker push jgkawell/ompl-dev:sawyer-nvidia
-docker push jgkawell/ompl-dev:lfd-nvidia
+docker push jgkawell/ompl:base
+docker push jgkawell/ompl:base-nvidia
+docker push jgkawell/ompl:sawyer
+docker push jgkawell/ompl:sawyer-nvidia
+docker push jgkawell/ompl:lfd
+docker push jgkawell/ompl:lfd-nvidia

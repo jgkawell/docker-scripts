@@ -4,24 +4,31 @@ services:
   - docker
 
 script:
-  - echo "Building Intel/Windows images..."
+  - echo "---------- (1/5) BUILDING X11 IMAGES ----------"
   - docker pull jgkawell/x11:latest
-  - docker build -f ./x11/Dockerfile --cache-from jgkawell/x11:latest ./x11
-
-  - docker pull jgkawell/ros-dev:latest
-  - docker build -f ./ros/Dockerfile --cache-from jgkawell/ros-dev:latest ./ros
-
-
-  - docker build -f ./ompl/Dockerfile --cache-from jgkawell/ompl-dev:latest ./ros
-  - docker-compose -f ompl/intel.docker-compose.yml build
-  - docker-compose -f ompl/sawyer/intel.docker-compose.yml build
-  - docker-compose -f ompl/lfd/intel.docker-compose.yml build
-  - echo "Building Nvidia images..."
-  - docker-compose -f x11/nvidia.docker-compose.yml build
-  - docker-compose -f ros/nvidia.docker-compose.yml build
-  - docker-compose -f ompl/nvidia.docker-compose.yml build
-  - docker-compose -f ompl/sawyer/nvidia.docker-compose.yml build
-  - docker-compose -f ompl/lfd/nvidia.docker-compose.yml build
+  - docker build -f ./x11/Dockerfile --target base --cache-from jgkawell/x11:latest -t jgkawell/x11:latest ./x11
+  - docker pull jgkawell/x11:nvidia
+  - docker build -f ./x11/Dockerfile --target nvidia --cache-from jgkawell/x11:nvidia -t jgkawell/x11:nvidia ./x11
+  - echo "---------- (2/5) BUILDING ROS IMAGES ----------"
+  - docker pull jgkawell/ros:latest
+  - docker build -f ./ros/Dockerfile --target base --cache-from jgkawell/ros:latest -t jgkawell/ros:latest ./ros
+  - docker pull jgkawell/ros:nvidia
+  - docker build -f ./ros/Dockerfile --target nvidia --cache-from jgkawell/ros:nvidia -t jgkawell/ros:nvidia ./ros
+  - echo "---------- (3/5) BUILDING OMPL BASE IMAGES ----------"
+  - docker pull jgkawell/ompl:base
+  - docker build -f ./ompl/Dockerfile --target base --cache-from jgkawell/ompl:base -t jgkawell/ompl:base ./ompl
+  - docker pull jgkawell/ompl:base-nvidia
+  - docker build -f ./ompl/Dockerfile --target nvidia --cache-from jgkawell/ompl:base-nvidia -t jgkawell/ompl:base-nvidia ./ompl
+  - echo "---------- (4/5) BUILDING OMPL SAWYER IMAGES ----------"
+  - docker pull jgkawell/ompl:sawyer
+  - docker build -f ./ompl/Dockerfile --target base --cache-from jgkawell/ompl:sawyer -t jgkawell/ompl:sawyer ./ompl
+  - docker pull jgkawell/ompl:sawyer-nvidia
+  - docker build -f ./ompl/Dockerfile --target nvidia --cache-from jgkawell/ompl:sawyer-nvidia -t jgkawell/ompl:sawyer-nvidia ./ompl
+  - echo "---------- (5/5) BUILDING OMPL LFD IMAGES ----------"
+  - docker pull jgkawell/ompl:lfd
+  - docker build -f ./ompl/Dockerfile --target base --cache-from jgkawell/ompl:lfd -t jgkawell/ompl:lfd ./ompl
+  - docker pull jgkawell/ompl:lfd-nvidia
+  - docker build -f ./ompl/Dockerfile --target nvidia --cache-from jgkawell/ompl:lfd-nvidia -t jgkawell/ompl:lfd-nvidia ./ompl
 
 deploy:
   provider: script
