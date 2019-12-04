@@ -1,4 +1,4 @@
-# ompl-dev:lfd
+# ompl:lfd
 
 This is a simple OMPL development box running Ubuntu 16.04 and ROS Kinetic Desktop, loaded with OMPL for custom cost functions and MoveIt!.
 
@@ -13,10 +13,10 @@ I would suggest pulling this image from Docker Hub instead of building locally f
 
 ```
 # For either a Windows host or a Linux host using Intel graphics
-docker pull jgkawell/ompl-dev:lfd
+docker pull jgkawell/ompl:lfd
 
 # For a Linux host using Nvidia graphics
-docker pull jgkawell/ompl-dev:lfd-nvidia
+docker pull jgkawell/ompl:lfd-nvidia
 ```
 
 If you're running a Linux host then check [the documentation](../docs/hardware-acceleration-linux.md) for how to set up hardware acceleration which is needed for these images. It will work with either Nvidia or Intel graphics.
@@ -40,8 +40,8 @@ docker exec -it {container_name} bash
 
 Replace `{container_name}` with the name of the container you built which depends on the host you're using:
 
-- `windows` or `intel` = `ompl-dev-lfd`
-- `nvidia` = `ompl-dev-lfd-nvidia`
+- `windows` or `intel` = `ompl-lfd`
+- `nvidia` = `ompl-lfd-nvidia`
 
 
 ## Using the container

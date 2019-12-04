@@ -1,4 +1,4 @@
-# ompl-dev:sawyer
+# ompl:sawyer
 
 This is a simple OMPL development box running Ubuntu 16.04 and ROS Kinetic Desktop, loaded with OMPL for custom cost functions and MoveIt!.
 
@@ -11,10 +11,10 @@ I would suggest pulling this image from Docker Hub instead of building locally f
 
 ```
 # For either a Windows host or a Linux host using Intel graphics
-docker pull jgkawell/ompl-dev:sawyer
+docker pull jgkawell/ompl:sawyer
 
 # For a Linux host using Nvidia graphics
-docker pull jgkawell/ompl-dev:sawyer-nvidia
+docker pull jgkawell/ompl:sawyer-nvidia
 ```
 
 If you're running a Linux host then check [the documentation](../docs/hardware-acceleration-linux.md) for how to set up hardware acceleration which is needed for these images. It will work with either Nvidia or Intel graphics.
@@ -38,8 +38,8 @@ docker exec -it {container_name} bash
 
 Replace `{container_name}` with the name of the container you built which depends on the host you're using:
 
-- `windows` or `intel` = `ompl-dev-sawyer`
-- `nvidia` = `ompl-dev-sawyer-nvidia`
+- `windows` or `intel` = `ompl-sawyer`
+- `nvidia` = `ompl-sawyer-nvidia`
 
 
 ## Using the container
