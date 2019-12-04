@@ -1,7 +1,7 @@
 ### BASE STAGE ###
 
 # Build from ros dev box
-FROM jgkawell/ros:latest AS base
+FROM jgkawell/ros:base AS base
 
 # Install MoveIt! (https://moveit.ros.org/install/source/):
 RUN apt -y update && apt -y install python-catkin-tools clang-format-3.9
