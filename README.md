@@ -38,15 +38,12 @@ For a Linux host, the setup is a little more complicated since we can use hardwa
 
 ### Launching the containerss
 
-Once all that is done, you can start a container using the provided docker-compose files in each folder. Just make sure you run the below command within the directory of the image you would like to run:
+Once all that is done, you can start a container using the provided launch scripts:
 
 ```
-# For a Linux host with an Nvidia dedicated GPU
-docker-compose -f nvidia.docker-compose.yml up
+# Linux host
+cd ./tools/linux
+bash launch.sh {repository} {tag_prefix} {host_type}
 
-# For a Linux host with an Intel integrated GPU
-docker-compose -f intel.docker-compose.yml up
-
-# For a Windows host
-docker-compose -f windows.docker-compose.yml up
+# Windows host (still to come)
 ```
