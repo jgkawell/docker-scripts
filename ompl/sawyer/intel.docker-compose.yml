@@ -1,7 +1,7 @@
 version: '3'
 services:
   main:
-    image: jgkawell/ompl-dev:sawyer
+    image: jgkawell/ompl:sawyer
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
     devices:
@@ -9,10 +9,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: ompl-dev-sawyer
+    container_name: ompl-sawyer
     environment:
       - "DISPLAY=${DISPLAY}"
       - "QT_X11_NO_MITSHM=1"
-      - "CONTAINER_NAME=ompl-dev-sawyer"
+      - "CONTAINER_NAME=ompl-sawyer"
     stdin_open: true
     tty: true
