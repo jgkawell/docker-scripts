@@ -5,13 +5,13 @@ services:
 
 script:
   - echo "---------- (1/5) X11 IMAGES ----------"
-  - docker pull jgkawell/x11:latest
-  - docker build -f ./x11/Dockerfile --target base --cache-from jgkawell/x11:latest -t jgkawell/x11:latest ./x11
-  - docker build -f ./x11/Dockerfile --target nvidia --cache-from jgkawell/x11:latest -t jgkawell/x11:nvidia ./x11
+  - docker pull jgkawell/x11:base
+  - docker build -f ./x11/Dockerfile --target base --cache-from jgkawell/x11:base -t jgkawell/x11:base ./x11
+  - docker build -f ./x11/Dockerfile --target nvidia --cache-from jgkawell/x11:base -t jgkawell/x11:base-nvidia ./x11
   - echo "---------- (2/5) ROS IMAGES ----------"
-  - docker pull jgkawell/ros:latest
-  - docker build -f ./ros/Dockerfile --target base --cache-from jgkawell/ros:latest -t jgkawell/ros:latest ./ros
-  - docker build -f ./ros/Dockerfile --target nvidia --cache-from jgkawell/ros:latest -t jgkawell/ros:nvidia ./ros
+  - docker pull jgkawell/ros:base
+  - docker build -f ./ros/Dockerfile --target base --cache-from jgkawell/ros:base -t jgkawell/ros:base ./ros
+  - docker build -f ./ros/Dockerfile --target nvidia --cache-from jgkawell/ros:base -t jgkawell/ros:base-nvidia ./ros
   - echo "---------- (3/5) OMPL BASE IMAGES ----------"
   - docker pull jgkawell/ompl:base
   - docker build -f ./ompl/Dockerfile --target base --cache-from jgkawell/ompl:base -t jgkawell/ompl:base ./ompl
