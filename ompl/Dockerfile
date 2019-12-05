@@ -28,6 +28,10 @@ RUN cd  ~/ws_moveit/src \
 # Copy in package.xml into OMPL for ROS building
 COPY ./config/package.xml /root/ws_moveit/src/ompl/package.xml
 
+# Remove tutorials which cause build issues
+RUN cd  ~/ws_moveit/src \
+        && rm -r moveit_tutorials
+
 # Finally install MoveIt! with our source OMPL
 RUN cd ~/ws_moveit && catkin build
 
