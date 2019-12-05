@@ -18,7 +18,7 @@ script:
   - docker build -f ./ompl/Dockerfile --target base -t jgkawell/ompl:base ./ompl
   - docker build -f ./ompl/Dockerfile --target nvidia --cache-from jgkawell/ompl:base -t jgkawell/ompl:base-nvidia ./ompl
   - echo "---------- (4/5) OMPL SAWYER IMAGES ----------"
-  - docker build -f ./ompl/sawyer/Dockerfile --target -t jgkawell/ompl:sawyer ./ompl
+  - docker build -f ./ompl/sawyer/Dockerfile --target base -t jgkawell/ompl:sawyer ./ompl
   - docker build -f ./ompl/sawyer/Dockerfile --target nvidia --cache-from jgkawell/ompl:sawyer -t jgkawell/ompl:sawyer-nvidia ./ompl
   - echo "---------- (5/5) OMPL LFD IMAGES ----------"
   - docker build -f ./ompl/lfd/Dockerfile --target base -t jgkawell/ompl:lfd ./ompl
