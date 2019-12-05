@@ -1,5 +1,7 @@
+### BASE STAGE ###
+
 # Build from 16.04 for ROS Kinetic
-FROM ubuntu:xenial
+FROM ubuntu:xenial AS base
 
 # Install misc needed packages
 RUN apt -y update && apt -y install git build-essential cmake tmux
@@ -15,7 +17,17 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/
 RUN apt -y update && apt -y install python-rosinstall python-rosinstall-generator python-wstool
 
 # Config file for easier tmux usage
-COPY ./.tmux.conf ~/.tmux.conf
+COPY ./config/.tmux.conf /root/.tmux.conf
 
 # Clean up apt
 RUN rm -rf /var/lib/apt/lists/*
+
+
+### NVIDIA STAGE ###
+
+# Extra needed setup for Nvidia-based graphics
+FROM base AS nvidia
+
+# Copy over needed OpenGL files from Nvidia's image
+COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 /usr/local /usr/local
+COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 /etc/ld.so.conf.d/glvnd.conf /etc/ld.so.conf.d/glvnd.conf

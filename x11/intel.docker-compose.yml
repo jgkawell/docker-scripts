@@ -1,14 +1,11 @@
 version: '3'
 services:
   main:
-    image: jgkawell/test:latest
+    image: jgkawell/x11:base
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
     devices:
       - "/dev/dri:/dev/dri"
-    build:
-      context: .
-      dockerfile: Dockerfile
     container_name: test-intel
     environment:
       - "DISPLAY=${DISPLAY}"

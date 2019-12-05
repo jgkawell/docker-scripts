@@ -1,14 +1,11 @@
 version: '3'
 services:
   main:
-    image: jgkawell/test:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: test
+    image: jgkawell/x11:base
+    container_name: x11
     environment:
       - "DISPLAY=${DISPLAY}"
       - "QT_GRAPHICSSYSTEM=native"
-      - "CONTAINER_NAME=test"
+      - "CONTAINER_NAME=x11"
     stdin_open: true
     tty: true

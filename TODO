@@ -1,0 +1,1 @@
+- Correct build information in docker-compose files so that builds can happen from docker-compose

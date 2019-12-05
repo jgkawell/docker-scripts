@@ -1,18 +1,15 @@
 version: '3'
 services:
   main:
-    image: jgkawell/ros-dev:latest
+    image: jgkawell/ros:base
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
     devices:
       - "/dev/dri:/dev/dri"
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: ros-dev-intel
+    container_name: ros-intel
     environment:
       - "DISPLAY=${DISPLAY}"
       - "QT_X11_NO_MITSHM=1"
-      - "CONTAINER_NAME=ros-dev-intel"
+      - "CONTAINER_NAME=ros-intel"
     stdin_open: true
     tty: true

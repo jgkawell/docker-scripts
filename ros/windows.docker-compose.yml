@@ -1,14 +1,11 @@
 version: '3'
 services:
   main:
-    image: jgkawell/ros-dev:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: ros-dev
+    image: jgkawell/ros:base
+    container_name: ros
     environment:
       - "DISPLAY=${DISPLAY}"
       - "QT_GRAPHICSSYSTEM=native"
-      - "CONTAINER_NAME=ros-dev"
+      - "CONTAINER_NAME=ros"
     stdin_open: true
     tty: true
