@@ -16,13 +16,14 @@ RUN cd ~/ws_moveit/src && git clone https://github.com/jgkawell/cairo-feedback-c
 RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/cairo-robot-interface.git
 
 # Clone CAIRO collision / scene repo
-RUN cd ~/ws_moveit && git clone https://github.com/cairo-robotics/collision_objects.git
+RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/collision_objects.git
 
 # Finally build the workspace
 RUN cd ~/ws_moveit && catkin build
 
 # Clean up apt
 RUN rm -rf /var/lib/apt/lists/*
+
 
 ### NVIDIA STAGE ###
 
