@@ -14,7 +14,7 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/
     && echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 
 # Install needed dependencies for building packages
-RUN apt -y update && apt -y install python-rosinstall python-rosinstall-generator python-wstool
+RUN apt -y update && apt -y install python-rosinstall python-rosinstall-generator python-wstool python-pip
 
 # Config file for easier tmux usage
 COPY ./config/.tmux.conf /root/.tmux.conf
