@@ -33,8 +33,15 @@ if [[ "${REPO}" == "ompl" ]]; then
     fi
 fi
 
-# Pull down the image
-docker pull jgkawell/${REPO}:${TAG}${HOST_TAG}
+# Make sure not to accidentally overwrite local images/containers
+if [[ "$(docker images -q jgkawell/${REPO}:${TAG}${HOST_TAG} 2> /dev/null)" == "" ]]; then
+    # Pull down the image
+    echo "The image does not exist. Pulling from Docker Hub."
+    docker pull jgkawell/${REPO}:${TAG}${HOST_TAG}
+else
+    # Don't pull if local image already exists
+    echo "The image already exists locally. Not pulling."
+fi
 
 # Add non-network local connections to control list
 xhost +local:root
