@@ -15,6 +15,9 @@ RUN cd ~/ws_moveit/src && git clone https://github.com/jgkawell/cairo-feedback-c
 # Clone CAIRO robot interface
 RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/cairo-robot-interface.git
 
+# Clone CAIRO collision / scene repo
+RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/collision_objects.git
+
 # Finally build the workspace
 RUN cd ~/ws_moveit && catkin build
 
