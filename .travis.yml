@@ -8,7 +8,6 @@ services:
   - docker
 
 before_script:
-  - docker pull $CACHE_IMAGE:latest || true
   - docker pull jgkawell/x11:base || true
   - docker pull jgkawell/ros:base || true
   - docker pull jgkawell/ompl:base || true
@@ -16,6 +15,7 @@ before_script:
   - docker pull jgkawell/ompl:lfd || true
 
 script:
+  - docker images
   - echo "---------- (1/5) X11 IMAGES ----------"
   - docker build --pull -f./x11/Dockerfile --target base --cache-from jgkawell/x11:base -t jgkawell/x11:base ./x11
   - docker build --pull -f./x11/Dockerfile --target nvidia --cache-from jgkawell/x11:base -t jgkawell/x11:base-nvidia ./x11
@@ -34,6 +34,9 @@ script:
 
 after_script:
   - docker images
+
+before_deploy:
+  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
 
 deploy:
   provider: script
