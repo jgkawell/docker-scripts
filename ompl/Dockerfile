@@ -9,7 +9,7 @@ RUN cd ~/ \
         && mkdir ws_moveit \
         && cd ws_moveit \
         && wstool init src \
-        && wstool merge -t src https://raw.githubusercontent.com/cairo-robotics/moveit/custom-cost/moveit.rosinstall \
+        && wstool merge -t src https://raw.githubusercontent.com/cairo-robotics/moveit/custom-cost-kinetic/moveit.rosinstall \
         && wstool update -t src \
         && rosdep -y install --from-paths src --ignore-src --rosdistro kinetic \
         && catkin config --extend /opt/ros/kinetic --cmake-args -DCMAKE_BUILD_TYPE=Release \
@@ -27,10 +27,6 @@ RUN cd  ~/ws_moveit/src \
 
 # Copy in package.xml into OMPL for ROS building
 COPY ./config/package.xml /root/ws_moveit/src/ompl/package.xml
-
-# Remove tutorials which cause build issues
-RUN cd  ~/ws_moveit/src \
-        && rm -r moveit_tutorials
 
 # Finally install MoveIt! with our source OMPL
 RUN cd ~/ws_moveit && catkin build
