@@ -1,12 +1,11 @@
 #!/bin/bash
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 # Push basic x11 images
-docker push jgkawell/x11:latest
+docker push jgkawell/x11:base
 docker push jgkawell/x11:nvidia
 
 # Push basic ROS images
-docker push jgkawell/ros:latest
+docker push jgkawell/ros:base
 docker push jgkawell/ros:nvidia
 
 # Push OMPL images

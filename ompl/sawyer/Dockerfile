@@ -37,10 +37,6 @@ RUN cd ~/ws_moveit/src \
 RUN cd  ~/ws_moveit/src \
         && git clone https://github.com/cairo-robotics/ompl_cost_server_demos.git
 
-# Remove tutorials which cause build issues
-RUN cd  ~/ws_moveit/src \
-        && rm -r moveit_tutorials
-
 # Finally build the workspace
 RUN cd ~/ws_moveit && catkin build
 
