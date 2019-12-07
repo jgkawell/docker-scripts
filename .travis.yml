@@ -29,6 +29,9 @@ script:
   - docker build -f ./ompl/lfd/Dockerfile --target base --cache-from jgkawell/ompl:lfd -t jgkawell/ompl:lfd ./ompl
   - docker build -f ./ompl/lfd/Dockerfile --target nvidia --cache-from jgkawell/ompl:lfd -t jgkawell/ompl:lfd-nvidia ./ompl
 
+before_deploy:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 deploy:
   provider: script
   script: bash docker_push
