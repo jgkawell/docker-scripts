@@ -18,6 +18,10 @@ RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/cairo-robo
 # Clone CAIRO collision / scene repo
 RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/collision_objects.git
 
+# Install LfD Python requirements
+RUN cd ~/ws_moveit/src/cairo-lfd && pip install -r requirements.txt
+RUN cd ~/ws_moveit/src/cairo-feedback-cclfd && pip install -r requirements.txt
+
 # Finally build the workspace
 RUN cd ~/ws_moveit && catkin build
 
