@@ -23,6 +23,7 @@ cd ompl
 git checkout custom-cost
 
 # Copy over files
+mkdir ~/ws_moveit/config
 cp ../../ompl/config/panda_demo.rviz ~/ws_moveit/config/panda_demo.rviz
 cp ../../ompl/config/pillar.scene ~/ws_moveit/config/pillar.scene
 cp ../../ompl/config/package.xml ~/ws_moveit/src/ompl/package.xml
