@@ -33,12 +33,9 @@ wstool update
 cd  ~/ws_moveit/src
 git clone https://github.com/cairo-robotics/ompl_cost_server_demos.git
 
-# Remove tutorials which cause build issues
-cd  ~/ws_moveit/src
-rm -r moveit_tutorials
-
 # Finally build the workspace
-cd ~/ws_moveit && catkin build
+cd ~/ws_moveit
+sudo catkin build
 
 # Copy over config files
-cp ../../ompl/config/sawyer_moveit.rviz ~/ws_moveit/ws_moveit/config/sawyer_moveit.rviz
+cp ../../ompl/config/sawyer_moveit.rviz ~/ws_moveit/config/sawyer_moveit.rviz

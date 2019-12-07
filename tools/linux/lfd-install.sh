@@ -14,4 +14,5 @@ cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/cairo-robot-in
 cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/collision_objects.git
 
 # Finally build the workspace
-cd ~/ws_moveit && catkin build
+cd ~/ws_moveit
+sudo catkin build
