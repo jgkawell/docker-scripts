@@ -6,8 +6,8 @@ FROM jgkawell/ros:base AS base
 # Install MoveIt! (https://moveit.ros.org/install/source/):
 RUN apt -y update && apt -y install python-catkin-tools clang-format-3.9
 RUN cd ~/ \
-        && mkdir ws_moveit \
-        && cd ws_moveit \
+        && mkdir catkin_ws \
+        && cd catkin_ws \
         && wstool init src \
         && wstool merge -t src https://raw.githubusercontent.com/cairo-robotics/moveit/custom-cost-kinetic/moveit.rosinstall \
         && wstool update -t src \
@@ -20,24 +20,24 @@ RUN cd ~/ \
 
 # Install OMPL (http://ompl.kavrakilab.org/installation.html):
 RUN apt -y update && apt -y install pkg-config libboost-serialization-dev libboost-filesystem-dev libboost-system-dev libboost-program-options-dev libboost-test-dev libode-dev wget
-RUN cd  ~/ws_moveit/src \
+RUN cd  ~/catkin_ws/src \
         && git clone https://github.com/cairo-robotics/ompl.git \
         && cd ompl \
         && git checkout custom-cost
 
 # Copy in package.xml into OMPL for ROS building
-COPY ./config/package.xml /root/ws_moveit/src/ompl/package.xml
+COPY ./config/package.xml /root/catkin_ws/src/ompl/package.xml
 
 # Finally install MoveIt! with our source OMPL
-RUN cd ~/ws_moveit && catkin build
+RUN cd ~/catkin_ws && catkin build
 
 # Copy over config files
-RUN cd ~/ws_moveit && mkdir config
-COPY ./config/panda_demo.rviz /root/ws_moveit/config/panda_demo.rviz
-COPY ./config/pillar.scene /root/ws_moveit/config/pillar.scene
+RUN cd ~/catkin_ws && mkdir config
+COPY ./config/panda_demo.rviz /root/catkin_ws/config/panda_demo.rviz
+COPY ./config/pillar.scene /root/catkin_ws/config/pillar.scene
 
 # Source the workspace with each new terminal
-RUN echo "source ~/ws_moveit/devel/setup.bash" >> ~/.bashrc
+RUN echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 
 # Clean up apt
 RUN rm -rf /var/lib/apt/lists/*

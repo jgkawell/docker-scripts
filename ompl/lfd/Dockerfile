@@ -7,19 +7,8 @@ FROM jgkawell/ompl:sawyer AS base
 RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/cairo-lfd.git
 RUN cd ~/ws_moveit/src/cairo-lfd && git checkout constraint_augmentation
 
-# Clone and install KDL for MoveIt plan listener
-RUN cd ~/ws_moveit/src \
-        && git clone https://github.com/gt-ros-pkg/hrl-kdl.git \
-        && cd hrl-kdl/pykdl_utils/ \
-        && python setup.py install \
-        && cd ../hrl_geom \
-        && python setup.py install
-
 # Clone CAIRO constraint classification
 RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/constraint_classification.git
-
-# Clone CAIRO feedback CC-LfD
-RUN cd ~/ws_moveit/src && git clone https://github.com/jgkawell/cairo-feedback-cclfd.git
 
 # Clone CAIRO robot interface
 RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/cairo-robot-interface.git
@@ -27,9 +16,36 @@ RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/cairo-robo
 # Clone CAIRO collision / scene repo
 RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/collision_objects.git
 
+# Clone CAIRO feedback CC-LfD
+RUN cd ~/ws_moveit/src && git clone https://github.com/jgkawell/feedback_cclfd.git
+
+# Clone CAIRO NLP
+RUN cd ~/ws_moveit/src && git clone https://github.com/cairo-robotics/cairo-nlp.git
+
+# Needed for NLP audio packages
+RUN apt -y update && apt -y install \
+        portaudio19-dev \
+        gcc \
+        g++
+
 # Install LfD Python requirements
 RUN cd ~/ws_moveit/src/cairo-lfd && pip install -r requirements.txt
-RUN cd ~/ws_moveit/src/cairo-feedback-cclfd && pip install -r requirements.txt
+RUN cd ~/ws_moveit/src/cairo-nlp && pip install -r requirements.txt
+
+# Current workaround since Google Cloud installation is broken
+RUN pip install --upgrade pip
+RUN pip install --upgrade 'setuptools<45.0.0'
+RUN pip install --upgrade 'cachetools<5.0'
+RUN pip install --upgrade cryptography
+RUN python -m easy_install --upgrade pyOpenSSL
+
+# Clone and install KDL for MoveIt plan listener
+RUN cd ~/ws_moveit/src \
+        && git clone https://github.com/gt-ros-pkg/hrl-kdl.git \
+        && cd hrl-kdl/pykdl_utils/ \
+        && python setup.py install \
+        && cd ../hrl_geom \
+        && python setup.py install
 
 # Finally build the workspace
 RUN cd ~/ws_moveit && catkin build
