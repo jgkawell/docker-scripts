@@ -3,7 +3,7 @@
 For each new terminal you'll need to start a simulated Sawyer environment. Simply move into the workspace and start the `intera` script:
 
 ```
-cd ~/ws_moveit
+cd ~/catkin_ws
 ./intera.sh sim
 ```
 
