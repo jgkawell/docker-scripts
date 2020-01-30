@@ -6,6 +6,7 @@ services:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
       - "${XAUTH}:${XAUTH}"
     container_name: ${CONTAINER}
+    environment:
       - "DISPLAY=${DISPLAY}"
       - "QT_X11_NO_MITSHM=1"
       - "CONTAINER_NAME=${CONTAINER}"
