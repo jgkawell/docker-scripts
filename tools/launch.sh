@@ -3,16 +3,18 @@
 # Help documentation
 if [[ "${1}" == "-h" ]] || [[ "${1}" == "--help" ]]; then
     echo "Usage: bash launch.sh [options]"
-    echo "  \$1: Docker repository name"
-    echo "  \$2: Docker repository tag"
-    echo "  \$3: Docker host type (windows/intel/nvidia)"
+    echo "  \$1: Docker user name"
+    echo "  \$2: Docker repository name"
+    echo "  \$3: Docker repository tag"
+    echo "  \$4: Docker host type (windows/intel/nvidia)"
     exit
 fi
 
 # Set globals
-REPO=$1
-TAG=$2
-HOST=$3
+USER=$1
+REPO=$2
+TAG=$3
+HOST=$4
 
 # Add the host tag and setup XAuth if it's Nvidia
 if [[ "${HOST}" == "nvidia" ]]; then
@@ -34,10 +36,10 @@ if [[ "${REPO}" == "ompl" ]]; then
 fi
 
 # Make sure not to accidentally overwrite local images/containers
-if [[ "$(docker images -q jgkawell/${REPO}:${TAG}${HOST_TAG} 2> /dev/null)" == "" ]]; then
+if [[ "$(docker images -q ${USER}/${REPO}:${TAG}${HOST_TAG} 2> /dev/null)" == "" ]]; then
     # Pull down the image
     echo "The image does not exist. Pulling from Docker Hub."
-    docker pull jgkawell/${REPO}:${TAG}${HOST_TAG}
+    docker pull ${USER}/${REPO}:${TAG}${HOST_TAG}
 else
     # Don't pull if local image already exists
     echo "The image already exists locally. Not pulling."
@@ -46,8 +48,9 @@ fi
 # Add non-network local connections to control list
 xhost +local:root
 
-export IMAGE="jgkawell/${REPO}:${TAG}${HOST_TAG}"
+export IMAGE="${USER}/${REPO}:${TAG}${HOST_TAG}"
 export CONTAINER="${REPO}-${TAG}${HOST_TAG}"
+export DISPLAY=:0
 
 # Bring up the container
 docker-compose -f ./${HOST}.docker-compose.yml up
