@@ -10,13 +10,13 @@ While this repository mainly holds documentation and launch/configuration script
 
 ## How to use
 
-Before continuing, I highly recommend reading through [the full documentation](./docs/README.md). It will explain how to configure your system for hosting X11 capable containers.
+Before continuing, I highly recommend reading through [the full documentation](https://github.com/jgkawell/docker-scripts/wiki). It will explain how to configure your system for hosting X11 capable containers.
 
 ### Setup X server (GUI forwarding)
 
 For a Windows host, you'll also need an X server application for GUI forwarding to work. [VcXsrv](https://sourceforge.net/projects/vcxsrv/) is a good one for Windows. Make sure to *unselect* "Native opengl" and *select* "Disable access control" while leaving all the other VcXsrv settings with their defaults.
 
-For a Linux host, the setup is a little more complicated since we can use hardware acceleration. Go [here](./docs/hardware-acceleration-linux.md) to find out how to set this up.
+For a Linux host, the setup is a little more complicated since we can use hardware acceleration. Go [here](https://github.com/jgkawell/docker-scripts/wiki/Linux-Host-(Generic)) to find out how to set this up.
 
 ### Launching containers
 
