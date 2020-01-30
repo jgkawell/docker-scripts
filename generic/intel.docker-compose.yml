@@ -1,15 +1,15 @@
 version: '3'
 services:
   main:
-    image: jgkawell/ros:base
+    image: ${IMAGE}
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
     devices:
       - "/dev/dri:/dev/dri"
-    container_name: ros-intel
+    container_name: ${CONTAINER}
     environment:
       - "DISPLAY=${DISPLAY}"
       - "QT_X11_NO_MITSHM=1"
-      - "CONTAINER_NAME=ros-intel"
+      - "CONTAINER_NAME=${CONTAINER}"
     stdin_open: true
     tty: true

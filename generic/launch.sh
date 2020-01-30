@@ -3,8 +3,8 @@
 # Help documentation
 if [[ "${1}" == "-h" ]] || [[ "${1}" == "--help" ]]; then
     echo "Usage: bash launch.sh [options]"
-    echo "  \$1: Docker repository name (x11/ros/ompl)"
-    echo "  \$2: Docker repository tag prefix (base/sawyer/lfd)"
+    echo "  \$1: Docker repository name"
+    echo "  \$2: Docker repository tag"
     echo "  \$3: Docker host type (windows/intel/nvidia)"
     exit
 fi
@@ -46,8 +46,11 @@ fi
 # Add non-network local connections to control list
 xhost +local:root
 
+export IMAGE="jgkawell/${REPO}:${TAG}${HOST_TAG}"
+export CONTAINER="${REPO}-${TAG}${HOST_TAG}"
+
 # Bring up the container
-docker-compose -f ../../${REPO}/${SUB_DIR}${HOST}.docker-compose.yml up
+docker-compose -f ./${HOST}.docker-compose.yml up
 
 # Remove non-network local connections from control list
 xhost -local:root
