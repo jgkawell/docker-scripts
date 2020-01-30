@@ -4,46 +4,30 @@
 
 This is a repository for helpful Docker scripts and tools.
 
-Within this repository are Dockerfiles and docker-compose files that will build different images for ROS and OMPL development along with the needed tools for MoveIt!, Sawyer, and CC-LfD. While you can simply build these images, this takes a while and it is much easier to simply pull them from Docker Hub as they are already stored there.
+This most helpful aspect of this repository is within the `tools` directory. This directory contains `docker-compose` files as well as a couple of bash scripts that together allow for easy launching of Docker containers with X11 server forwarding (GUI apps) for Docker hosts that are Windows, Linux with Intel-based graphics, and Linux with Nvidia-based graphics.
+
+While this repository mainly holds documentation and launch/configuration scripts, it also contains a Dockerfile which sets up a simple Ubuntu container that is capable of X11 server forwarding.
 
 ## How to use
 
-Before continuing, I highly recommend reading through [the full documentation](./docs/README.md). It will explain how to configure your system for hosting these containers as well as walk you though simply tutorials on how to use the tools provided.
-
-### Download the image
-
-I would suggest that you pick which image you want (by reading the README's within each folder) and then simply pull them with the below commands:
-
-```
-docker pull jgkawell/{repository}:{tag}
-```
-
-### Setup environment variables
-
-Once you've pulled the image you're ready to start the container, but first be sure to set your `DISPLAY` environment variable so that this will be passed to the container for GUI forwarding:
-
-```
-# For a Linux host
-export DISPLAY=:0
-
-# For a Windows host
-[Environment]::SetEnvironmentVariable("DISPLAY", "{your_ip_address}:0.0")
-```
+Before continuing, I highly recommend reading through [the full documentation](./docs/README.md). It will explain how to configure your system for hosting X11 capable containers.
 
 ### Setup X server (GUI forwarding)
 
-For a Windows host, you'll also need an X server application for GUI forwarding to work. [VcXsrv](https://sourceforge.net/projects/vcxsrv/) is a good one for Windows.
+For a Windows host, you'll also need an X server application for GUI forwarding to work. [VcXsrv](https://sourceforge.net/projects/vcxsrv/) is a good one for Windows. Make sure to *unselect* "Native opengl" and *select* "Disable access control" while leaving all the other VcXsrv settings with their defaults.
 
 For a Linux host, the setup is a little more complicated since we can use hardware acceleration. Go [here](./docs/hardware-acceleration-linux.md) to find out how to set this up.
 
-### Launching the containerss
+### Launching containers
 
-Once all that is done, you can start a container using the provided launch scripts:
+Once all that is done, you can start a container using the provided launch script:
 
 ```
-# Linux host
-cd ./tools/linux
-bash launch.sh {repository} {tag_prefix} {host_type}
+bash ./tools/launch.sh {user} {repository} {tag} {host}
+```
 
-# Windows host (still to come)
+Make sure to use the user, repository, tag, and host that you would like. For example, using the image built with the Dockerfile in this repository on a *Linux computer running Intel graphics* would look like this:
+
+```
+bash ./tools/launch.sh jgkawell x11 base intel
 ```
