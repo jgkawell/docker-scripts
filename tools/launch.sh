@@ -46,14 +46,22 @@ else
 fi
 
 # Add non-network local connections to control list
-xhost +local:root
+if [[ "${HOST}" != "windows" ]]; then
+    xhost +local:root
+fi
 
 export IMAGE="${USER}/${REPO}:${TAG}${HOST_TAG}"
 export CONTAINER="${REPO}-${TAG}${HOST_TAG}"
-export DISPLAY=:0
+
+# Setup Display env variable
+if [[ "${HOST}" != "windows" ]]; then
+    export DISPLAY=:0
+fi
 
 # Bring up the container
 docker-compose -f ./${HOST}.docker-compose.yml up
 
 # Remove non-network local connections from control list
-xhost -local:root
+if [[ "${HOST}" != "windows" ]]; then
+    xhost -local:root
+fi
