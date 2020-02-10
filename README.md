@@ -14,9 +14,21 @@ Before continuing, I highly recommend reading through [the full documentation](h
 
 ### Setup X server (GUI forwarding)
 
-For a Windows host, you'll also need an X server application for GUI forwarding to work. [VcXsrv](https://sourceforge.net/projects/vcxsrv/) is a good one for Windows. Make sure to *unselect* "Native opengl" and *select* "Disable access control" while leaving all the other VcXsrv settings with their defaults.
+#### Windows Host
 
-For a Linux host, the setup is a little more complicated since we can use hardware acceleration. Go [here](https://github.com/jgkawell/docker-scripts/wiki/Linux-Host-(Generic)) to find out how to set this up.
+NOTE: I'm assuming you're running Docker through the new WSL2 instead of the old way. This is the only way my launch script will run (since it runs in bash).
+
+You'll need an X server application for GUI forwarding to work. [VcXsrv](https://sourceforge.net/projects/vcxsrv/) is a good one for Windows. Make sure to *unselect* "Native opengl" and *select* "Disable access control" while leaving all the other VcXsrv settings with their defaults.
+
+Also be sure to set the `$DISPLAY` environment variable to your current IP address before launching the containers (you can find this under Settings -> Network & Internet -> Status -> Properties)
+
+```
+export $DISPLAY={ip_address}:0
+```
+
+#### Linux Host
+
+For a Linux host the setup is a little more complicated since we can use hardware acceleration. Go [here](https://github.com/jgkawell/docker-scripts/wiki/Linux-Host-(Generic)) to find out how to set this up.
 
 ### Launching containers
 
