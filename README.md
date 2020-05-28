@@ -20,10 +20,10 @@ NOTE: I'm assuming you're running Docker through the new WSL2 instead of the old
 
 You'll need an X server application for GUI forwarding to work. [VcXsrv](https://sourceforge.net/projects/vcxsrv/) is a good one for Windows. Make sure to *unselect* "Native opengl" and *select* "Disable access control" while leaving all the other VcXsrv settings with their defaults.
 
-Also be sure to set the `$DISPLAY` environment variable to your current IP address before launching the containers (you can find this under Settings -> Network & Internet -> Status -> Properties)
+Also be sure to set the `DISPLAY` environment variable to your current IP address before launching the containers (you can find this under Settings -> Network & Internet -> Status -> Properties)
 
 ```
-export $DISPLAY={ip_address}:0
+export DISPLAY={ip_address}:0
 ```
 
 #### Linux Host
